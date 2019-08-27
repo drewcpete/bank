@@ -56,8 +56,47 @@ Bank.prototype.removeAccount = function(id) {
 }
 
 ///////////////// UI ////////////////////
+var bank = new Bank();
+
 $(function() {
-  $(".form").submit(function() {
+
+  $("input:radio[value=new]").click(function() {
+      $("#current").hide();
+      $("#new").fadeIn("slow");
+  });
+  $("input:radio[value=current]").click(function() {
+      $("#current").fadeIn("slow");
+      $("#new").hide();
+  });
+
+  $("#newAccForm").submit(function() {
+    var name = $("#inputName").val();
+    var deposit = $("#initialDeposit").val();
+
+    var newAcc = new Account(name, deposit);
+    bank.addAccount(newAcc);
+
+
+    $("#inputName").val("");
+    $("#initialDeposit").val("");
+    displayAccs(bank);
+  });
+  $(".transactionForm").submit(function() {
+    var deposit = $("#newDeposit").val();
+    var withdraw = $("#newWithdraw").val();
+
+
+
 
   });
+  displayAccs(bank);
 });
+function displayAccs(bank){
+  var accList = $("#accSelect");
+  var accHTML = "";
+
+  for (var i = 0; i < bank.accounts.length; i++) {
+    accHTML += "<option id=" + bank.accounts[i].id + ">" + bank.accounts[i].name + " " + bank.accounts[i].balance + "</option>"
+  }
+  accList.append(accHTML);
+}

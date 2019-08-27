@@ -11,26 +11,44 @@
   <body>
     <h1 class="jumbotron">Epicredit Union</h1>
     <div class="container">
+      <div class="radio">
+        <label for="">New Customer</label>
+        <input type="radio" name="accountType" value="new" checked>
+        <label for="">Existing Account</label>
+        <input type="radio" name="accountType" value="current">
+      </div>
+      <div class="row">
 
-        <div class="row">
-          <div class="well col-md-6">
-            <form id="" action="index.html" method="post">
-              <h3 for="">New Account Setup:</h3>
-              <input type="text" name="" placeholder="Name" id="inputName">
-              <input id="initialDeposit" type="text" name="" placeholder="Initial Deposit" >
-            </form>
-          </div>
-          <div class="well col-md-6">
+        <div class="form" id="new">
+          <form id="newAccForm" action="index.html" method="post">
+            <h3 for="">New Account Setup:</h3>
+            <input type="text" name="" placeholder="Name" id="inputName" required>
+            <br>
+            <input id="initialDeposit" type="number" name="" placeholder="Initial Deposit" required>
+            <br>
+            <button class="btn btn-dark" type="submit" name="button">Create Account</button>
+          </form>
+        </div>
+        <div class="form" id="current">
+          <form class="transactionForm" action="index.html" method="post">
             <h3>Deposit or Withdraw:</h3>
             <input type="text" placeholder="Deposit" id="newDeposit" value="">
+            <br>
             <input type="text" placeholder="Withdraw" id="newWithdraw" value="">
-          </div>
+            <br>
+            <button class="btn btn-dark" type="submit" name="button">Process Transaction</button>
+          </form>
         </div>
-        <div id="balanceDisp"class="well">
-          <h4>Current Balance:</h4>
-          <button type="submit" name="button">current Balance</button>
+        <div class="bankDiv transactionForm">
+          <select id="accSelect" name="">
+            <option>N/A</option>
+          </select>
         </div>
-      </form>
+      </div>
+      <div id="balanceDisp"class="well">
+        <h4>Current Balance:</h4>
+        <div id="curBal">current Balance</div>
+      </div>
     </div>
 
 
