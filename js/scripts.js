@@ -106,13 +106,16 @@ $(function() {
     $("#newDeposit").val("");
     $("#newWithdraw").val("");
 
-    if(deposit) {
-      bank.findAccount(getSelectedAccount()).makeDeposit(deposit);
+    if(getSelectedAccount()) {
+      if(deposit) {
+        bank.findAccount(getSelectedAccount()).makeDeposit(deposit);
+      }
+      if(withdraw) {
+        bank.findAccount(getSelectedAccount()).makeWithdrawl(withdraw);
+      }
+      showAccInfo(getSelectedAccount());
+
     }
-    if(withdraw) {
-      bank.findAccount(getSelectedAccount()).makeWithdrawl(withdraw);
-    }
-    showAccInfo(getSelectedAccount());
   });
 
   $("#accSelect").change(function() {
