@@ -5,15 +5,15 @@ function Account(name, balance) {
   this.balance = balance;
 }
 
-Account.prototype.deposit = function(amount) {
-  this.balance += amount;
+Account.prototype.makeDeposit = function(amount) {
+  this.balance += parseInt(amount);
 }
 
-Account.prototype.withdrawl = function(amount) {
+Account.prototype.makeWithdrawl = function(amount) {
   if(amount > this.balance) {
     alert("Not enough funds! You only have: $" + this.balance);
   } else {
-    this.balance -= amount;
+    this.balance -= parseInt(amount);
   }
 }
 
@@ -69,28 +69,40 @@ $(function() {
       $("#new").hide();
   });
 
-  $("#newAccForm").submit(function() {
+  $("#newAccForm").submit(function(event) {
+    event.preventDefault();
     var name = $("#inputName").val();
-    var deposit = $("#initialDeposit").val();
-
+    var deposit = parseInt($("#initialDeposit").val());
     var newAcc = new Account(name, deposit);
     bank.addAccount(newAcc);
-
-
     $("#inputName").val("");
     $("#initialDeposit").val("");
     displayAccs(bank);
+    $("#curBal").html("$" + bank.findAccount(getSelectedAccount()).balance);
   });
-  $(".transactionForm").submit(function() {
+
+  $(".transactionForm").submit(function(event) {
+    event.preventDefault();
     var deposit = $("#newDeposit").val();
     var withdraw = $("#newWithdraw").val();
+    $("#newDeposit").val("");
+    $("#newWithdraw").val("");
 
-
-
-
+    if(deposit) {
+      bank.findAccount(getSelectedAccount()).makeDeposit(deposit);
+    }
+    if(withdraw) {
+      bank.findAccount(getSelectedAccount()).makeWithdrawl(withdraw);  
+    }
+    $("#curBal").html("$" + bank.findAccount(getSelectedAccount()).balance);
   });
-  displayAccs(bank);
+
+  $("#accSelect").change(function() {
+    $("#curBal").html("$" + bank.findAccount(getSelectedAccount()).balance);
+  });
 });
+
+
 function displayAccs(bank){
   var accList = $("#accSelect");
   var accHTML = "";
@@ -98,5 +110,10 @@ function displayAccs(bank){
   for (var i = 0; i < bank.accounts.length; i++) {
     accHTML += "<option id=" + bank.accounts[i].id + ">" + bank.accounts[i].name + " " + bank.accounts[i].balance + "</option>"
   }
-  accList.append(accHTML);
+
+  accList.html(accHTML);
+}
+
+function getSelectedAccount() {
+  return parseInt($("#accSelect").children(":selected").attr("id"));
 }
