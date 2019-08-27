@@ -33,3 +33,7 @@ body {
   background: rgb(15,170,47);
   background: linear-gradient(90deg, rgba(15,170,47,1) 0%, rgba(254,249,6,1) 50%, rgba(0,255,113,0.9598214285714286) 100%);
 }
+
+#balanceDisp {
+  display: none;
+}

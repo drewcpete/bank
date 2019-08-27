@@ -2,11 +2,13 @@
 ////////// Account Object ///////////////
 function Account(name, balance) {
   this.name = name,
-  this.balance = balance;
+  this.balance = balance,
+  this.history = [balance];
 }
 
 Account.prototype.makeDeposit = function(amount) {
   this.balance += parseInt(amount);
+  this.history.push(amount);
 }
 
 Account.prototype.makeWithdrawl = function(amount) {
@@ -14,11 +16,23 @@ Account.prototype.makeWithdrawl = function(amount) {
     alert("Not enough funds! You only have: $" + this.balance);
   } else {
     this.balance -= parseInt(amount);
+    this.history.push("-" + amount);
   }
 }
 
 Account.prototype.seeBalance = function() {
   alert("Current Balance: $" + this.balance);
+}
+
+Account.prototype.getHistory = function() {
+  var output = "";
+  for(let i=0; i<this.history.length; i++) {
+    output += "$" + this.history[i];
+    if(i < this.history.length-1) {
+      output += ", ";
+    }
+  }
+  return output;
 }
 
 //////////// Bank Object //////////////////
@@ -78,7 +92,7 @@ $(function() {
     $("#inputName").val("");
     $("#initialDeposit").val("");
     displayAccs(bank);
-    $("#curBal").html("$" + bank.findAccount(getSelectedAccount()).balance);
+    showAccInfo(getSelectedAccount());
   });
 
   $(".transactionForm").submit(function(event) {
@@ -94,11 +108,11 @@ $(function() {
     if(withdraw) {
       bank.findAccount(getSelectedAccount()).makeWithdrawl(withdraw);
     }
-    $("#curBal").html("$" + bank.findAccount(getSelectedAccount()).balance);
+    showAccInfo(getSelectedAccount());
   });
 
   $("#accSelect").change(function() {
-    $("#curBal").html("$" + bank.findAccount(getSelectedAccount()).balance);
+    showAccInfo(getSelectedAccount());
   });
 });
 
@@ -108,7 +122,7 @@ function displayAccs(bank){
   var accHTML = "";
 
   for (var i = 0; i < bank.accounts.length; i++) {
-    accHTML += "<option id=" + bank.accounts[i].id + ">" + bank.accounts[i].name + " " + bank.accounts[i].balance + "</option>"
+    accHTML += "<option id=" + bank.accounts[i].id + ">" + bank.accounts[i].name + "</option>";
   }
 
   accList.html(accHTML);
@@ -117,4 +131,13 @@ function displayAccs(bank){
 
 function getSelectedAccount() {
   return parseInt($("#accSelect").children(":selected").attr("id"));
+}
+
+function showAccInfo(id) {
+  var acc = bank.findAccount(id);
+  $("#balanceDisp").show();
+  $("#accName").html(acc.name);
+  $("#accNum").html(acc.id);
+  $("#curBal").html("$" + acc.balance);
+  $("#accHistory").html(acc.getHistory());
 }
