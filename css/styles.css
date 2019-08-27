@@ -1,0 +1,12 @@
+.col-md-6 {
+  background-color: lightgrey;
+  max-width: 33%;
+  margin: 5%;
+  border-radius: 25px;
+  height: auto;
+  padding: 20px;
+}
+
+#balanceDisp {
+
+}
