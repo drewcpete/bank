@@ -37,3 +37,7 @@ body {
 #balanceDisp {
   display: none;
 }
+
+.negative {
+  color: red;
+}

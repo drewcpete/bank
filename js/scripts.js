@@ -27,7 +27,11 @@ Account.prototype.seeBalance = function() {
 Account.prototype.getHistory = function() {
   var output = "";
   for(let i=0; i<this.history.length; i++) {
-    output += "$" + this.history[i];
+    if(this.history[i].toString().includes("-")){
+      output += "<span class='negative'>$" + this.history[i] + "</span>";
+    } else {
+      output += "$" + this.history[i];
+    }
     if(i < this.history.length-1) {
       output += ", ";
     }
@@ -140,4 +144,5 @@ function showAccInfo(id) {
   $("#accNum").html(acc.id);
   $("#curBal").html("$" + acc.balance);
   $("#accHistory").html(acc.getHistory());
+
 }
