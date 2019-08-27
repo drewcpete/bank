@@ -1,10 +1,12 @@
 .form {
-  background-color: lightgrey;
+  background-image: url(../img/dolla.gif);
   max-width: auto;
   margin: 5%;
   border-radius: 25px;
   height: auto;
   padding: 20px;
+  color: lightgrey;
+  text-shadow: 2px 2px black;
 }
 
 #balanceDisp {
@@ -15,4 +17,19 @@
 }
 #current {
   display: none;
+}
+
+.jumbotron {
+  max-width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:  center;
+  background-image: url(../img/giphy.gif);
+  color: lightgrey;
+  text-shadow: 2px 2px black;
+}
+
+body {
+  background: rgb(15,170,47);
+  background: linear-gradient(90deg, rgba(15,170,47,1) 0%, rgba(254,249,6,1) 50%, rgba(0,255,113,0.9598214285714286) 100%);
 }

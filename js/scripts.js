@@ -92,7 +92,7 @@ $(function() {
       bank.findAccount(getSelectedAccount()).makeDeposit(deposit);
     }
     if(withdraw) {
-      bank.findAccount(getSelectedAccount()).makeWithdrawl(withdraw);  
+      bank.findAccount(getSelectedAccount()).makeWithdrawl(withdraw);
     }
     $("#curBal").html("$" + bank.findAccount(getSelectedAccount()).balance);
   });
@@ -112,6 +112,7 @@ function displayAccs(bank){
   }
 
   accList.html(accHTML);
+
 }
 
 function getSelectedAccount() {
